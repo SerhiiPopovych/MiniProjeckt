@@ -11,8 +11,8 @@ for (const user of users) {
     button.className = 'button-details'
     button.innerText = ('Details')
     button.onclick = () => {
-        document.location.href = ('user-details.html')
-        localStorage.setItem('user_id', user.id);
+       document.location.href = (`user-details.html?user=${JSON.stringify(user)}`)
+        // localStorage.setItem('user_id', user.id);
     }
     userDiv.appendChild(userP)
     userDiv.appendChild(button)

@@ -1,16 +1,11 @@
-const postID = localStorage.getItem('post_id');
-const userID = localStorage.getItem('user_id')
-fetch(`https://jsonplaceholder.typicode.com/users/${userID}/posts`)
-    .then(response => response.json())
-    .then(posts => {
-        for (const post of posts) {
-            if (postID == post.id){
+const post = JSON.parse(new URL(location).searchParams.get('post'))
+console.log(post);
+
                 const postDiv = document.createElement('div')
                 postDiv.className = 'post-div'
                 const postP = document.createElement('p')
                 postP.innerHTML = `${JSON.stringify(post, null, 1)} <br>`
-                const commentsToPost = () =>{
-                    fetch (`https://jsonplaceholder.typicode.com/posts/${postID}/comments`)
+                fetch (`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
                         .then(response => response.json())
                         .then(coments=> {
                             const commentsDiv = document.createElement('div')
@@ -23,14 +18,7 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userID}/posts`)
                                 commentDiv.appendChild(commentP)
                                 commentsDiv.appendChild(commentDiv)
                                 document.body.appendChild(commentsDiv)
-
                             }
-
                         })
-                }
-                commentsToPost()
                 postDiv.appendChild(postP)
                 document.body.appendChild(postDiv)
-            }
-        }
-    })
